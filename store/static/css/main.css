@@ -41,3 +41,8 @@ body{
 #productContent{
 	border:hidden;
 }
+
+#productImgList{
+	width: 100%;
+
+}
