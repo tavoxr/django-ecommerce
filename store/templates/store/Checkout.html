@@ -1,6 +1,80 @@
 {% extends 'store/Main.html' %}
-
+{%load static%}
 
 {% block content %}
-<h3>Checkout</h3>
+
+<div class="row mt-4">
+    <div class="col-12 col-md-6 col-lg-6">
+        <div class="card card-body">
+            <form>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" placeholder="Name"  class="form-control"/>
+                    </div>
+                    <div class="col">
+                        <input type="text"  placeholder="Email" class="form-control" />
+                    </div>
+                </div>
+                <hr class="mt-4"/>
+                <h5>Shipping Information:</h5>
+                <hr />
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" placeholder="Address.." class="form-control"/>
+                        <input type="text" placeholder="State.." class="form-control mt-4"/>
+
+                    </div>
+                    <div class="col">
+                        <input type="text" placeholder="City.." class="form-control"/>
+                         <input type="text" placeholder="Zip Code.." class="form-control mt-4"/>
+
+                    </div>
+                    <div>
+                        <hr class="mt-4"/>
+                    </div>
+                    <div class="form-group mt-1">
+                        <button type="submit" class="btn btn-success form-control">Continue</button>
+                    </div>
+
+                </div>
+                
+
+          
+            </form>
+        </div>
+        <div class="card card-body mt-4 " id="hidden">
+            <small>Paypal Options</small>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-6">
+        <div class="card card-body">
+            <div class="d-grid gap-2 d-md-block">
+                <a href="{% url 'store' %}" class="btn btn-outline-secondary btn-inblock"><i class="fas fa-arrow-left">  Continue Shopping</i></a>
+                </div>  
+                <hr class="mt-4"/>
+                <h5>Order Summary:</h5>
+                <hr />
+                <div class="table-responsive">
+                    <table class="table">
+                        
+                        <tbody>
+                            <tr class="text-center">
+                                <td class="align-middle"><img src="{% static 'images/product1.png' %}" class=" img-fluid p-0 m-1" width="90"  id="productImgList" /></td>
+                                <td class="align-middle">Product1</td>
+                                <td class="align-middle">$20.00</td>
+                                <td class="align-middle">X2</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h5>Items: 2</h5>
+                <h5>Total: $4</h5>
+                
+                
+                
+        </div>
+    </div>
+</div>
+
 {% endblock %}
