@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'store'
+    'store.apps.StoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django-ecommerce',
-        'USER': 'root',
-        'PASSWORD': 'evangelion01',
+        'USER': 'postgres',
+        'PASSWORD': 'eva01',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '5432'
 
     }
 }

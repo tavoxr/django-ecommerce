@@ -1,8 +1,8 @@
 from django.urls import path, include
-from . import views
+from .viewsets import *
 
 urlpatterns=[
-    path('', views.store, name='store' ),
-    path('cart/', views.cart, name='cart'),
-    path('checkout/', views.checkout, name='checkout')
+    path('', store, name='store' ),
+    path('cart/', cart, name='cart'),
+    path('checkout/', checkout, name='checkout')
 ]
