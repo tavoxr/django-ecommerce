@@ -12,10 +12,27 @@ class Order(models.Model):
     def __str__(self):
         return f'Order:{self.id} - {self.customer.name}'
 
-    #@property
-    #def get_total_order_ammount(self):
-    #   orderitems = self.orderitem_set.all()
-    #   total = for item in orderitems
+    @property
+    def get_total_order_ammount(self):
+       orderitems = self.orderitem_set.all()
+       total = 0  #sum([item.get_total_ammount for item in orderitems])
+
+       for item in orderitems:
+           total += item.get_total_ammount
+
+       return total
+
+    @property
+    def get_total_items(self):
+        orderItems = self.orderitem_set.all()
+        total = 0
+
+
+        for item in orderItems:
+            total += item.quantity
+        
+        return total
+
 
 
 class OrderItem(models.Model):

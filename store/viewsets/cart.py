@@ -8,14 +8,15 @@ def cart(request):
         customer =  request.user.customer
         order, created = Order.objects.get_or_create(customer = customer, complete= False)
         items = order.orderitem_set.all()
-        totalItems = items.count()
+        
         
     else:
         items = []
+        order = {'get_total_order_ammount': 0, 'get_total_items': 0}
 
 
     context = { 'items': items, 
-                'totalItems': totalItems,
+                'order': order,
                 
                  }
     return render(request,'store/Cart.html', context)
