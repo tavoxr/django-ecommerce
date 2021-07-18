@@ -12,8 +12,8 @@
                 <table class="table ">
                     <thead>
                         <tr>
-                            <th class="text-center" scope="col"><h5>Items: <strong>3</strong></h5></th>
-                            <th class="text-center" scope="col"><h5>Total: <strong>$43</strong></h5></th>
+                            <th class="text-center" scope="col"><h5>Items: <strong>{{totalItems}}</strong></h5></th>
+                            <th class="text-center" scope="col"><h5>Total: <strong>$</strong></h5></th>
                             <th scope="col" class="text-center" ><a href="{% url 'checkout' %}" class="btn btn-success btn-sm">Checkout</a></th>
                         </tr>
                     </thead>
@@ -37,13 +37,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for item in items %}
                         <tr class="text-center">
-                            <td class=""><img src="{% static 'images/product1.png' %}" class="p-0 m-1" width="90"  id="productImgList" /></td>
-                            <td class="align-middle">erew</td>
-                            <td class="align-middle">err</td>
-                            <td class="align-middle"><div class="d-flex flex-row justify-content-around"><p class="mt-3">dfdf</p><div class="d-flex flex-column justify-content-center"><i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></div></div></td>
-                            <td class="align-middle"></td>
+                            <td class=""><img src="{{item.product.image.url}}" class="p-0 m-1" width="90"  id="productImgList" /></td>
+                            <td class="align-middle">{{item.product.name}}</td>
+                            <td class="align-middle">{{item.product.price}}</td>
+                            <td class="align-middle">
+                                <div class="d-flex flex-row justify-content-around">
+                                    <p class="mt-3">{{item.quantity}}</p>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <i class="fas fa-sort-up"></i>
+                                        <i class="fas fa-sort-down"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">${{item.get_total_ammount}}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

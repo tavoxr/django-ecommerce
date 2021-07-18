@@ -5,8 +5,8 @@
 
 <div class="row mt-4">
     <div class="col-12 col-md-6 col-lg-6">
-        <div class="card card-body">
-            <form>
+        <div class="card card-body mb-3">
+            <form id="form">
                 <div class="row mt-2">
                     <div class="col">
                         <input type="text" placeholder="Name"  class="form-control"/>
@@ -47,9 +47,9 @@
         </div>
     </div>
     <div class="col-12 col-md-6 col-lg-6">
-        <div class="card card-body">
+        <div class="card card-body mb-3 ">
             <div class="d-grid gap-2 d-md-block">
-                <a href="{% url 'store' %}" class="btn btn-outline-secondary btn-inblock"><i class="fas fa-arrow-left">  Continue Shopping</i></a>
+                <a href="{% url 'store' %}" class="btn btn-outline-secondary btn-inblock"><i class="fas fa-arrow-left"></i> &nbsp; Back to Cart</a>
                 </div>  
                 <hr class="mt-4"/>
                 <h5>Order Summary:</h5>
