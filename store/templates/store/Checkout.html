@@ -58,18 +58,20 @@
                     <table class="table">
                         
                         <tbody>
+                            {% for item in items %}
                             <tr class="text-center">
-                                <td class="align-middle"><img src="{% static 'images/product1.png' %}" class=" img-fluid p-0 m-1" width="90"  id="productImgList" /></td>
-                                <td class="align-middle">Product1</td>
-                                <td class="align-middle">$20.00</td>
-                                <td class="align-middle">X2</td>
+                                <td class="align-middle"><img src="{{ item.product.image.url }}" class=" img-fluid p-0 m-1" width="90"  id="productImgList" /></td>
+                                <td class="align-middle">{{item.product.name}}</td>
+                                <td class="align-middle">${{item.product.price}}</td>
+                                <td class="align-middle">X{{item.quantity}}</td>
                                 
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <h5>Items: 2</h5>
-                <h5>Total: $4</h5>
+                <h5>Items: {{order.get_total_items}}</h5>
+                <h5>Total: $ {{order.get_total_order_ammount}}</h5>
                 
                 
                 
