@@ -23,7 +23,7 @@
         <div class="form-inline d-flex my-1 my-lg-0">
             <a href="" class="btn btn-warning ">Login</a>
             <a href="{% url 'cart'%}" id="cartLink" class=""><i id="cart-icon" class="fas fa-shopping-cart text-white"></i></a>
-            <p id="cart-total">0</p>
+            <p id="cart-total">{{cartItems}}</p>
         </div>
         
       </div>

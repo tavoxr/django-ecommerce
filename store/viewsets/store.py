@@ -1,12 +1,25 @@
 from django.shortcuts import render
-from ..models import Product
+from ..models import Product, Order
 
 def store(request):
+
+    if request.user.is_authenticated:
+
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer= customer, complete= False)
+        items =  order.orderitem_set.all()
+        cartItems = order.get_total_items
+    else:
+        items= []
+        order = {'get_total_order_ammount': 0, 'get_total_items': 0}
+        cartItems = order['get_total_items']
+
+
+
     products = Product.objects.all()
-
-
     context = {
-        'products': products
+        'products': products,
+        'cartItems': cartItems
 
     }
     return render(request, 'store/Store.html', context)
