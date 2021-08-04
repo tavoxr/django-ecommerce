@@ -46,8 +46,8 @@
                                 <div class="d-flex flex-row justify-content-around">
                                     <p class="mt-3">{{item.quantity}}</p>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <i class="fas fa-sort-up"></i>
-                                        <i class="fas fa-sort-down"></i>
+                                        <i data-product={{item.product.id}} data-action="add" class="fas fa-sort-up update-cart"></i>
+                                        <i data-product={{item.product.id}} data-action="remove" class="fas fa-sort-down update-cart"></i>
                                     </div>
                                 </div>
                             </td>

@@ -1,4 +1,4 @@
-var addToCartBtn = document.getElementsByClassName('addToCart')
+var addToCartBtn = document.getElementsByClassName('update-cart')
 
 
 for(var i=0; i < addToCartBtn.length; i++){
