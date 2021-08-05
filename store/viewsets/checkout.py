@@ -4,6 +4,8 @@ from django.shortcuts import render
 from ..models import Order, ShippingAddress
 from django.http import  JsonResponse
 import datetime
+from ..utils import cookieCart
+
 
 def checkout(request):
 
@@ -14,10 +16,10 @@ def checkout(request):
         items =  order.orderitem_set.all()
         cartItems = order.get_total_items
     else:
-        items= []
-        order = {'get_total_order_ammount': 0, 'get_total_items': 0}
-        cartItems = order['get_total_items']
-
+        cookieData =  cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order =  cookieData['order']
+        items =  cookieData['items']
 
     context={
         'order': order,
