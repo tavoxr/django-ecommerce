@@ -1,4 +1,5 @@
 import json
+from store.models import product
 from store.models.product import Product
 from django.shortcuts import render
 from ..models import Order, OrderItem, Customer
@@ -13,9 +14,26 @@ def cart(request):
         cartItems = order.get_total_items
         
     else:
+
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+
+        print('Cart', cart)
         items = []
         order = {'get_total_order_ammount': 0, 'get_total_items': 0}
         cartItems = order['get_total_items']
+
+        for i in cart:
+            cartItems += cart[i]['quantity']
+
+            product = Product.objects.get(id = i)
+            total = (product.price * cart[i]['quantity'])
+
+            order['get_total_order_ammount'] += total
+            order['get_total_items'] += cart[i]['quantity']
+
 
 
     context = { 'items': items, 
