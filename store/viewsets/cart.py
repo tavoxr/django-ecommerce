@@ -4,28 +4,22 @@ from store.models.product import Product
 from django.shortcuts import render
 from ..models import Order, OrderItem, Customer
 from django.http import JsonResponse
-from ..utils  import cookieCart
+from ..utils  import cartData
 
 def cart(request):
     
-    if request.user.is_authenticated:
-        customer =  request.user.customer
-        order, created = Order.objects.get_or_create(customer = customer, complete= False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_total_items
+    data = cartData(request)
+    
+    cartItems = data['cartItems']
+    order =  data['order']
+    items = data['items']
         
-    else:
-        cookieData =  cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order =  cookieData['order']
-        items =  cookieData['items']
-        
-
     context = { 'items': items, 
                 'order': order,
                 'cartItems': cartItems
                 
-                 }
+              }
+
     return render(request,'store/Cart.html', context)
 
 

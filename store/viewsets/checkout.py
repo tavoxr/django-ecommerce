@@ -1,31 +1,29 @@
 import json
+from store.models.order import OrderItem
+from store.models.product import Product
+from store.models.users import Customer
 from store.models import shipping
 from django.shortcuts import render
 from ..models import Order, ShippingAddress
 from django.http import  JsonResponse
 import datetime
-from ..utils import cookieCart
+from ..utils import cookieCart ,cartData
 
 
 def checkout(request):
 
-    if request.user.is_authenticated:
-
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer= customer, complete= False)
-        items =  order.orderitem_set.all()
-        cartItems = order.get_total_items
-    else:
-        cookieData =  cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order =  cookieData['order']
-        items =  cookieData['items']
+    data =  cartData(request)
+    
+    cartItems =  data['cartItems']
+    order  = data['order']
+    items = data['items']
 
     context={
         'order': order,
         'items': items,
         'cartItems': cartItems
     }
+
     return render(request, 'store/Checkout.html', context)
 
 
@@ -39,14 +37,7 @@ def processOrder(request):
     if request.user.is_authenticated:
         customer =  request.user.customer
         order, created = Order.objects.get_or_create(customer = customer, complete =False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
-
-        if total == float(order.get_total_order_ammount):
-            order.complete = True
         
-        order.save()
-
         shippingAddress =  ShippingAddress.objects.create(
             customer = customer,
             order =  order,
@@ -59,6 +50,46 @@ def processOrder(request):
 
     else:
         print('User is not logged in...')  
+        print('COOKIES', request.COOKIES)
+        
+        name = data['form']['name']
+        email =  data['form']['email']
+
+        cookieData =  cookieCart(request)
+        items = cookieData['items']
+
+        customer, created = Customer.objects.get_or_create( 
+            email = email
+            )
+        
+        customer.name = name
+        customer.save()
+        
+        order =  Order.objects.create(
+            customer =  customer,
+            complete = False
+        )
+
+        for item in items:
+            product = Product.objects.get(id= item['product']['id'])
+
+            orderItem = OrderItem.objects.create(
+                product = product,
+                order = order,
+                quantity = item['quantity']
+            )
+
+
+
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
+
+    if total == float(order.get_total_order_ammount):
+        order.complete = True
+        
+    order.save()
+
+
     return JsonResponse('Payment complete', safe=False)
 
 
